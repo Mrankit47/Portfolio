@@ -1,59 +1,547 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ankit Kushwah | Web Developer Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Ankit Kushwah - Web Developer & UI/UX Designer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Three.js for 3D object -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  </head>
+  <body>
+    <!-- CURSOR -->
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=n, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- scroll progress bar -->
+    <div id="scroll-progress"></div>
 
-</head>
-
-<body>
-    <div id="main">
-        <div id="page">
-            <div id="nav">
-                <img src="logo.png" alt="PORTFOLIO">
-                <div id="center-nav">
-                    <a href="#">ABOUT</a>
-                    <a href="#">SERVICES</a>
-                    <a href="#">PORTFOLIO</a>
-                    <a href="#">CONTACT</a>
-                </div>
-                <input type="text" placeholder="Search">
-            </div>
-            <img src="ak1.png" alt="">
-            <div id="text">
-                <h5>Hi</h5>
-                <h1>I'm <br> Ankit Kushwah <br></h1>
-                <h2>I am a web developer</h2>
-                <h4>To work with an organization where can learn new skills and increase my abilities for the organization
-                    goals as well as myself.  </h4>
-                <div id="button">
-                    <button id="b1">LET'S TALK <i class="ri-telegram-line"></i></button>
-                    <button id="b2" onClick="document.location='RESUMEak.pdf'" > RESUME<i class="ri-arrow-right-up-line"></i></button>
-                </div>
-            </div>
-        </div>
-        <div id="page1">
-            <div id="right"></div>
-            <div id="left">
-                <div class="box">
-                    <h4>01/</h4>
-                    <h1>WEB UI/UX <BR> Design</BR></h1>
-                </div>
-                <div class="box">
-                    <h4>02/</h4>
-                    <h1>WEB UI/UX <BR> Design</BR></h1>
-                </div>
-                <div class="box">
-                    <h4>03/</h4>
-                    <h1>WEB UI/UX <BR> Design</BR></h1>
-                </div>
-            </div>
-        </div>
+    <!-- LOADER -->
+    <div id="loader">
+      <div class="loader-inner"><span>A</span><span>K</span></div>
     </div>
-</body>
 
+    <!-- NAVBAR -->
+    <nav id="navbar">
+      <div class="nav-logo">
+        <span class="logo-text">AK<span class="dot">.</span></span>
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <a href="Ankit_Kushwah Resume.pdf" download class="btn-resume">
+        <i class="ri-download-2-line"></i> Resume
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- ===== PAGE 1 — HERO ===== -->
+    <section id="home" class="hero">
+      <div class="hero-bg">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="grid-overlay"></div>
+      </div>
+      <!-- 3D Torus Knot Canvas -->
+      <canvas id="hero3d" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="badge animate-fade-up">
+            <span class="badge-dot"></span> Available for work
+          </div>
+          <p class="hi-text animate-fade-up delay-1">Hi</p>
+          <h1 class="hero-title animate-fade-up delay-2">
+            I'm <span class="gradient-text">Ankit Kushwah</span>
+          </h1>
+          <h2 class="animate-fade-up delay-2">
+            I am a <span id="typewriter" class="tw-color"></span
+            ><span class="cursor-blink">|</span>
+          </h2>
+          <p class="hero-desc animate-fade-up delay-3">
+            To work with an organization where can learn new skills and increase
+            my abilities for the organization goals as well as myself.
+          </p>
+          <div class="hero-btns animate-fade-up delay-4">
+            <a href="#contact" class="btn-primary"
+              >LET'S TALK <i class="ri-telegram-line"></i
+            ></a>
+            <a href="Ankit_Kushwah Resume.pdf" download class="btn-secondary"
+              >RESUME <i class="ri-arrow-right-up-line"></i
+            ></a>
+          </div>
+        </div>
+        <div class="hero-image animate-fade-left delay-2">
+          <div class="img-container">
+            <div class="img-glow"></div>
+            <img src="ak1.png" alt="Ankit Kushwah" class="profile-img" />
+            <div class="img-ring"></div>
+            <div class="floating-card card1">
+              <i class="ri-code-s-slash-line"></i><span>Web Dev</span>
+            </div>
+            <div class="floating-card card2">
+              <i class="ri-palette-line"></i><span>UI/UX</span>
+            </div>
+            <div class="floating-card card3">
+              <i class="ri-star-fill"></i><span>Creative</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating 3D Cube (hero decoration) -->
+      <div class="cube-wrap" style="right: 2%; top: 15%">
+        <div class="cube">
+          <div class="cube-face front"></div>
+          <div class="cube-face back"></div>
+          <div class="cube-face left"></div>
+          <div class="cube-face right"></div>
+          <div class="cube-face top"></div>
+          <div class="cube-face bottom"></div>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll Down</span>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2 — ABOUT ===== -->
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Who I Am</span>
+          <h2 class="section-title">
+            About <span class="gradient-text">Me</span>
+          </h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="about-grid">
+          <div class="about-left reveal">
+            <div class="about-img-wrap">
+              <img src="ak1.png" alt="Ankit Kushwah" class="about-img" />
+            </div>
+          </div>
+          <div class="about-right reveal delay-1">
+            <h3>Web Developer &amp; UI/UX Designer</h3>
+            <p>
+              I'm <strong>Ankit Kushwah</strong>, a web developer who enjoys
+              building clean and interactive web designs. I'm passionate about
+              UI/UX and creating experiences that users love.
+            </p>
+            <p>
+              To work with an organization where can learn new skills and
+              increase my abilities for the organization goals as well as
+              myself.
+            </p>
+            <div class="about-info">
+              <div class="info-item">
+                <i class="ri-user-line"></i>
+                <div><span>Name</span><strong>Ankit Kushwah</strong></div>
+              </div>
+              <div class="info-item">
+                <i class="ri-briefcase-line"></i>
+                <div><span>Role</span><strong>Web Developer</strong></div>
+              </div>
+              <div class="info-item">
+                <i class="ri-map-pin-line"></i>
+                <div>
+                  <span>Status</span
+                  ><strong class="available">Available for Work</strong>
+                </div>
+              </div>
+            </div>
+            <a
+              href="Ankit_Kushwah Resume.pdf"
+              download
+              class="btn-primary mt-20"
+            >
+              <i class="ri-download-2-line"></i> Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3 — SERVICES ===== -->
+    <section id="services" class="services section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">What I Offer</span>
+          <h2 class="section-title">
+            My <span class="gradient-text">Services</span>
+          </h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="services-grid scene">
+          <div class="service-card reveal-3d">
+            <div class="service-icon"><i class="ri-layout-4-line"></i></div>
+            <h3>WEB UI/UX Design</h3>
+            <p>
+              Creating visually stunning, modern and user-friendly web interface
+              designs.
+            </p>
+            <div class="service-num">01</div>
+          </div>
+          <div class="service-card reveal-3d delay-1">
+            <div class="service-icon"><i class="ri-code-s-slash-line"></i></div>
+            <h3>Web Development</h3>
+            <p>
+              Building fast, responsive websites using HTML, CSS and JavaScript.
+            </p>
+            <div class="service-num">02</div>
+          </div>
+          <div class="service-card reveal-3d delay-2">
+            <div class="service-icon"><i class="ri-smartphone-line"></i></div>
+            <h3>Responsive Design</h3>
+            <p>
+              Making sure your website looks perfect on all screen sizes and
+              devices.
+            </p>
+            <div class="service-num">03</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="contact section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">
+            Contact <span class="gradient-text">Me</span>
+          </h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <h3>Let's Work Together</h3>
+            <p>
+              Have a project in mind? Send me a message — I'd love to hear about
+              it!
+            </p>
+            <div class="contact-socials" style="margin-top: 28px">
+              <a href="Ankit_Kushwah Resume.pdf" download class="btn-secondary">
+                <i class="ri-download-2-line"></i> Resume
+              </a>
+            </div>
+          </div>
+          <div class="contact-form-wrap reveal delay-1">
+            <!--
+            Formspree: form data POST hoga is URL pe aur aapke registered
+            email pe message aayega. Pehli form submit pe Formspree ek
+            verification mail bhejega — use confirm karo, phir sab messages inbox mein aayenge.
+          -->
+            <!-- Success message (shown after submit) -->
+            <div class="form-success" id="form-success">
+              <div class="success-icon">
+                <i class="ri-checkbox-circle-fill"></i>
+              </div>
+              <h3>Message Sent!</h3>
+              <p>Thank you for reaching out. I'll get back to you soon!</p>
+            </div>
+            <form
+              class="contact-form"
+              id="contact-form"
+              action="https://formspree.io/f/mnpkvvbo"
+              method="POST"
+            >
+              <input
+                type="hidden"
+                name="_subject"
+                value="New message from Portfolio - Ankit Kushwah!"
+              />
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  name="_replyto"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input type="text" name="subject" placeholder="Subject" />
+              </div>
+              <div class="form-group">
+                <textarea
+                  name="message"
+                  rows="5"
+                  placeholder="Your Message"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn-primary" id="submit-btn">
+                <span id="btn-text">Send Message</span>
+                <i class="ri-send-plane-line" id="btn-icon"></i>
+                <i
+                  class="ri-loader-4-line spin-icon"
+                  id="btn-loader"
+                  style="display: none"
+                ></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <span class="logo-text">AK<span class="dot">.</span></span>
+        <p>
+          &copy; 2024 Ankit Kushwah. Crafted with
+          <i class="ri-heart-fill" style="color: #a855f7"></i>
+        </p>
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <button id="back-to-top" title="Back to Top">
+      <i class="ri-arrow-up-line"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <!-- ===== THREE.JS 3D GALAXY + CRYSTAL (Scroll-Reactive) ===== -->
+    <script>
+      (function () {
+        const canvas = document.getElementById("hero3d");
+        if (!canvas || typeof THREE === "undefined") return;
+
+        const renderer = new THREE.WebGLRenderer({
+          canvas,
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 200);
+        camera.position.set(0, 0, 5.5);
+
+        /* ---- GROUP (everything moves together on scroll/mouse) ---- */
+        const group = new THREE.Group();
+        scene.add(group);
+
+        /* ---- LIGHTS ---- */
+        scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+        const lPurple = new THREE.PointLight(0xa855f7, 8, 15);
+        lPurple.position.set(2, 2, 3);
+        scene.add(lPurple);
+        const lCyan = new THREE.PointLight(0x38bdf8, 6, 15);
+        lCyan.position.set(-3, -1, 2);
+        scene.add(lCyan);
+        const lWhite = new THREE.PointLight(0xffffff, 3, 10);
+        lWhite.position.set(0, 3, 1);
+        scene.add(lWhite);
+
+        /* ---- CRYSTAL CORE (double octahedron) ---- */
+        const crystalGeo = new THREE.OctahedronGeometry(0.85, 1);
+        const crystalMat = new THREE.MeshPhongMaterial({
+          color: 0xcc88ff,
+          emissive: 0x4a009e,
+          specular: 0x99eeff,
+          shininess: 180,
+          transparent: true,
+          opacity: 0.82,
+          side: THREE.DoubleSide,
+        });
+        const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+        group.add(crystal);
+
+        // Wireframe shell over crystal
+        const wireGeo = new THREE.OctahedronGeometry(0.87, 1);
+        const wireMat2 = new THREE.MeshBasicMaterial({
+          color: 0x38bdf8,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.28,
+        });
+        const wireShell = new THREE.Mesh(wireGeo, wireMat2);
+        group.add(wireShell);
+
+        /* ---- OUTER ICOSAHEDRON (large cage) ---- */
+        const cageGeo = new THREE.IcosahedronGeometry(1.55, 0);
+        const cageMat = new THREE.MeshBasicMaterial({
+          color: 0xa855f7,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.12,
+        });
+        const cage = new THREE.Mesh(cageGeo, cageMat);
+        group.add(cage);
+
+        /* ---- ORBITING RINGS ---- */
+        function makeRing(radius, tube, color, rotX, rotY) {
+          const geo = new THREE.TorusGeometry(radius, tube, 6, 80);
+          const mat = new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: 0.55,
+          });
+          const mesh = new THREE.Mesh(geo, mat);
+          mesh.rotation.x = rotX;
+          mesh.rotation.y = rotY;
+          group.add(mesh);
+          return mesh;
+        }
+        const ring1 = makeRing(1.35, 0.008, 0xa855f7, Math.PI / 2, 0);
+        const ring2 = makeRing(1.55, 0.006, 0x38bdf8, 0.4, 1.1);
+        const ring3 = makeRing(1.75, 0.005, 0xcc88ff, 1.0, 0.5);
+
+        /* ---- GALAXY PARTICLES (spiral arms) ---- */
+        const PARTICLE_COUNT = 2200;
+        const positions = new Float32Array(PARTICLE_COUNT * 3);
+        const colors = new Float32Array(PARTICLE_COUNT * 3);
+        const colA = new THREE.Color(0xa855f7);
+        const colB = new THREE.Color(0x38bdf8);
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const arm = (i % 3) * ((Math.PI * 2) / 3); // 3 arms
+          const r = 1.8 + (i / PARTICLE_COUNT) * 2.8; // radius grows
+          const spin = r * 0.55; // curl
+          const spread = (Math.random() - 0.5) * 0.38;
+          const angle = arm + spin;
+
+          positions[i * 3] = Math.cos(angle) * r + spread;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 0.5;
+          positions[i * 3 + 2] = Math.sin(angle) * r + spread;
+
+          const mix = i / PARTICLE_COUNT;
+          const c = colA.clone().lerp(colB, mix);
+          colors[i * 3] = c.r;
+          colors[i * 3 + 1] = c.g;
+          colors[i * 3 + 2] = c.b;
+        }
+
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+        pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+        const pMat = new THREE.PointsMaterial({
+          size: 0.025,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.85,
+          sizeAttenuation: true,
+        });
+        const particles = new THREE.Points(pGeo, pMat);
+        group.add(particles);
+
+        /* ---- SCROLL + MOUSE ---- */
+        let scrollY = 0;
+        window.addEventListener("scroll", () => {
+          scrollY = window.scrollY;
+        });
+
+        let mouseX = 0,
+          mouseY = 0,
+          tgtX = 0,
+          tgtY = 0;
+        window.addEventListener("mousemove", (e) => {
+          mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+          mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        /* ---- RESIZE ---- */
+        function resize() {
+          const hero = document.getElementById("home");
+          const w = hero.offsetWidth,
+            h = hero.offsetHeight;
+          renderer.setSize(w, h);
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+        }
+        resize();
+        window.addEventListener("resize", resize);
+
+        /* ---- ANIMATE ---- */
+        let t = 0;
+        function animate() {
+          requestAnimationFrame(animate);
+          t += 0.006;
+
+          const heroH =
+            document.getElementById("home").offsetHeight || window.innerHeight;
+          const scrollFrac = Math.min(scrollY / heroH, 1);
+
+          // Mouse parallax (smooth lerp)
+          tgtX += (mouseX * 0.25 - tgtX) * 0.06;
+          tgtY += (mouseY * 0.25 - tgtY) * 0.06;
+          group.rotation.x = tgtY * 0.6 - scrollFrac * 0.4;
+          group.rotation.y = tgtX * 0.6 + t * 0.12;
+
+          // Crystal inner spin
+          crystal.rotation.y = t * 0.8;
+          crystal.rotation.x = t * 0.45;
+          wireShell.rotation.y = -t * 0.6;
+          wireShell.rotation.x = t * 0.35;
+
+          // Cage slow counter-rotation
+          cage.rotation.y = -t * 0.06;
+          cage.rotation.x = t * 0.04;
+
+          // Rings orbit
+          ring1.rotation.z = t * 0.28;
+          ring2.rotation.z = t * 0.18;
+          ring3.rotation.z = -t * 0.14;
+
+          // Galaxy particles drift
+          particles.rotation.y = t * 0.05;
+
+          // Scroll: scale down + fade
+          const s = 1 - scrollFrac * 0.55;
+          group.scale.setScalar(s);
+          group.position.y = -scrollFrac * 2.2;
+
+          // Crystal pulse
+          const pulse = 1 + Math.sin(t * 2.5) * 0.04;
+          crystal.scale.setScalar(pulse);
+          wireShell.scale.setScalar(pulse);
+
+          // Light color orbit
+          lPurple.position.x = Math.cos(t * 0.7) * 3;
+          lPurple.position.z = Math.sin(t * 0.7) * 3;
+          lCyan.position.x = Math.cos(t * 0.7 + Math.PI) * 3;
+          lCyan.position.z = Math.sin(t * 0.7 + Math.PI) * 3;
+
+          renderer.render(scene, camera);
+        }
+        animate();
+      })();
+    </script>
+  </body>
 </html>
