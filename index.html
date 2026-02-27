@@ -127,7 +127,7 @@
     <!-- ===== PAGE 2 — ABOUT ===== -->
     <section id="about" class="about section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal-magnetic">
           <span class="section-tag">Who I Am</span>
           <h2 class="section-title">
             About <span class="gradient-text">Me</span>
@@ -135,7 +135,7 @@
           <div class="section-line"></div>
         </div>
         <div class="about-grid">
-          <div class="about-left reveal">
+          <div class="about-left reveal-blur">
             <div class="about-img-wrap">
               <img src="ak1.png" alt="Ankit Kushwah" class="about-img" />
             </div>
@@ -184,15 +184,15 @@
     <!-- ===== PAGE 3 — SERVICES ===== -->
     <section id="services" class="services section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal-magnetic">
           <span class="section-tag">What I Offer</span>
           <h2 class="section-title">
             My <span class="gradient-text">Services</span>
           </h2>
           <div class="section-line"></div>
         </div>
-        <div class="services-grid scene">
-          <div class="service-card reveal-3d">
+        <div class="services-grid scene stagger-children">
+          <div class="service-card reveal-zoom">
             <div class="service-icon"><i class="ri-layout-4-line"></i></div>
             <h3>WEB UI/UX Design</h3>
             <p>
@@ -201,7 +201,7 @@
             </p>
             <div class="service-num">01</div>
           </div>
-          <div class="service-card reveal-3d delay-1">
+          <div class="service-card reveal-zoom">
             <div class="service-icon"><i class="ri-code-s-slash-line"></i></div>
             <h3>Web Development</h3>
             <p>
@@ -209,7 +209,7 @@
             </p>
             <div class="service-num">02</div>
           </div>
-          <div class="service-card reveal-3d delay-2">
+          <div class="service-card reveal-zoom">
             <div class="service-icon"><i class="ri-smartphone-line"></i></div>
             <h3>Responsive Design</h3>
             <p>
@@ -225,7 +225,7 @@
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="contact section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal-magnetic">
           <span class="section-tag">Get in Touch</span>
           <h2 class="section-title">
             Contact <span class="gradient-text">Me</span>
@@ -233,7 +233,7 @@
           <div class="section-line"></div>
         </div>
         <div class="contact-grid">
-          <div class="contact-info reveal">
+          <div class="contact-info reveal-magnetic">
             <h3>Let's Work Together</h3>
             <p>
               Have a project in mind? Send me a message — I'd love to hear about
@@ -245,7 +245,7 @@
               </a>
             </div>
           </div>
-          <div class="contact-form-wrap reveal delay-1">
+          <div class="contact-form-wrap reveal-clip">
             <!--
             Formspree: form data POST hoga is URL pe aur aapke registered
             email pe message aayega. Pehli form submit pe Formspree ek
@@ -262,7 +262,7 @@
             <form
               class="contact-form"
               id="contact-form"
-              action="https://formspree.io/f/mnpkvvbo"
+              action="https://formspree.io/f/xlgwzvyd"
               method="POST"
             >
               <input
@@ -281,7 +281,7 @@
               <div class="form-group">
                 <input
                   type="email"
-                  name="_replyto"
+                  name="email"
                   placeholder="Your Email"
                   required
                 />
@@ -353,23 +353,22 @@
         const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 200);
         camera.position.set(0, 0, 5.5);
 
-        /* ---- GROUP (everything moves together on scroll/mouse) ---- */
         const group = new THREE.Group();
         scene.add(group);
 
-        /* ---- LIGHTS ---- */
+        // --- LIGHTS ---
         scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-        const lPurple = new THREE.PointLight(0xa855f7, 8, 15);
+        const lPurple = new THREE.PointLight(0x7c3aed, 8, 15);
         lPurple.position.set(2, 2, 3);
         scene.add(lPurple);
-        const lCyan = new THREE.PointLight(0x38bdf8, 6, 15);
+        const lCyan = new THREE.PointLight(0xd8b4fe, 6, 15);
         lCyan.position.set(-3, -1, 2);
         scene.add(lCyan);
         const lWhite = new THREE.PointLight(0xffffff, 3, 10);
         lWhite.position.set(0, 3, 1);
         scene.add(lWhite);
 
-        /* ---- CRYSTAL CORE (double octahedron) ---- */
+        // --- CRYSTAL CORE ---
         const crystalGeo = new THREE.OctahedronGeometry(0.85, 1);
         const crystalMat = new THREE.MeshPhongMaterial({
           color: 0xcc88ff,
@@ -383,10 +382,9 @@
         const crystal = new THREE.Mesh(crystalGeo, crystalMat);
         group.add(crystal);
 
-        // Wireframe shell over crystal
         const wireGeo = new THREE.OctahedronGeometry(0.87, 1);
         const wireMat2 = new THREE.MeshBasicMaterial({
-          color: 0x38bdf8,
+          color: 0xd8b4fe,
           wireframe: true,
           transparent: true,
           opacity: 0.28,
@@ -394,10 +392,10 @@
         const wireShell = new THREE.Mesh(wireGeo, wireMat2);
         group.add(wireShell);
 
-        /* ---- OUTER ICOSAHEDRON (large cage) ---- */
+        // --- OUTER CAGE ---
         const cageGeo = new THREE.IcosahedronGeometry(1.55, 0);
         const cageMat = new THREE.MeshBasicMaterial({
-          color: 0xa855f7,
+          color: 0x7c3aed,
           wireframe: true,
           transparent: true,
           opacity: 0.12,
@@ -405,7 +403,7 @@
         const cage = new THREE.Mesh(cageGeo, cageMat);
         group.add(cage);
 
-        /* ---- ORBITING RINGS ---- */
+        // --- RINGS ---
         function makeRing(radius, tube, color, rotX, rotY) {
           const geo = new THREE.TorusGeometry(radius, tube, 6, 80);
           const mat = new THREE.MeshBasicMaterial({
@@ -419,21 +417,21 @@
           group.add(mesh);
           return mesh;
         }
-        const ring1 = makeRing(1.35, 0.008, 0xa855f7, Math.PI / 2, 0);
-        const ring2 = makeRing(1.55, 0.006, 0x38bdf8, 0.4, 1.1);
+        const ring1 = makeRing(1.35, 0.008, 0x7c3aed, Math.PI / 2, 0);
+        const ring2 = makeRing(1.55, 0.006, 0xd8b4fe, 0.4, 1.1);
         const ring3 = makeRing(1.75, 0.005, 0xcc88ff, 1.0, 0.5);
 
-        /* ---- GALAXY PARTICLES (spiral arms) ---- */
+        // --- GALAXY PARTICLES ---
         const PARTICLE_COUNT = 2200;
         const positions = new Float32Array(PARTICLE_COUNT * 3);
         const colors = new Float32Array(PARTICLE_COUNT * 3);
-        const colA = new THREE.Color(0xa855f7);
-        const colB = new THREE.Color(0x38bdf8);
+        const colA = new THREE.Color(0x7c3aed);
+        const colB = new THREE.Color(0xd8b4fe);
 
         for (let i = 0; i < PARTICLE_COUNT; i++) {
-          const arm = (i % 3) * ((Math.PI * 2) / 3); // 3 arms
-          const r = 1.8 + (i / PARTICLE_COUNT) * 2.8; // radius grows
-          const spin = r * 0.55; // curl
+          const arm = (i % 3) * ((Math.PI * 2) / 3);
+          const r = 1.8 + (i / PARTICLE_COUNT) * 2.8;
+          const spin = r * 0.55;
           const spread = (Math.random() - 0.5) * 0.38;
           const angle = arm + spin;
 
@@ -461,26 +459,18 @@
         const particles = new THREE.Points(pGeo, pMat);
         group.add(particles);
 
-        /* ---- SCROLL + MOUSE ---- */
         let scrollY = 0;
-        window.addEventListener("scroll", () => {
-          scrollY = window.scrollY;
-        });
+        window.addEventListener("scroll", () => (scrollY = window.scrollY));
 
-        let mouseX = 0,
-          mouseY = 0,
-          tgtX = 0,
-          tgtY = 0;
+        let mouseX = 0, mouseY = 0, tgtX = 0, tgtY = 0;
         window.addEventListener("mousemove", (e) => {
           mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
           mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        /* ---- RESIZE ---- */
         function resize() {
           const hero = document.getElementById("home");
-          const w = hero.offsetWidth,
-            h = hero.offsetHeight;
+          const w = hero.offsetWidth, h = hero.offsetHeight;
           renderer.setSize(w, h);
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
@@ -488,55 +478,40 @@
         resize();
         window.addEventListener("resize", resize);
 
-        /* ---- ANIMATE ---- */
         let t = 0;
         function animate() {
           requestAnimationFrame(animate);
           t += 0.006;
 
-          const heroH =
-            document.getElementById("home").offsetHeight || window.innerHeight;
+          const heroH = document.getElementById("home").offsetHeight || window.innerHeight;
           const scrollFrac = Math.min(scrollY / heroH, 1);
 
-          // Mouse parallax (smooth lerp)
           tgtX += (mouseX * 0.25 - tgtX) * 0.06;
           tgtY += (mouseY * 0.25 - tgtY) * 0.06;
           group.rotation.x = tgtY * 0.6 - scrollFrac * 0.4;
           group.rotation.y = tgtX * 0.6 + t * 0.12;
 
-          // Crystal inner spin
           crystal.rotation.y = t * 0.8;
           crystal.rotation.x = t * 0.45;
           wireShell.rotation.y = -t * 0.6;
           wireShell.rotation.x = t * 0.35;
 
-          // Cage slow counter-rotation
           cage.rotation.y = -t * 0.06;
           cage.rotation.x = t * 0.04;
 
-          // Rings orbit
           ring1.rotation.z = t * 0.28;
           ring2.rotation.z = t * 0.18;
           ring3.rotation.z = -t * 0.14;
 
-          // Galaxy particles drift
           particles.rotation.y = t * 0.05;
 
-          // Scroll: scale down + fade
           const s = 1 - scrollFrac * 0.55;
           group.scale.setScalar(s);
           group.position.y = -scrollFrac * 2.2;
 
-          // Crystal pulse
           const pulse = 1 + Math.sin(t * 2.5) * 0.04;
           crystal.scale.setScalar(pulse);
           wireShell.scale.setScalar(pulse);
-
-          // Light color orbit
-          lPurple.position.x = Math.cos(t * 0.7) * 3;
-          lPurple.position.z = Math.sin(t * 0.7) * 3;
-          lCyan.position.x = Math.cos(t * 0.7 + Math.PI) * 3;
-          lCyan.position.z = Math.sin(t * 0.7 + Math.PI) * 3;
 
           renderer.render(scene, camera);
         }

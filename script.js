@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===== LOADER =====
   const loader = document.getElementById("loader");
   window.addEventListener("load", () => {
-    setTimeout(() => loader.classList.add("hide"), 1400);
+    // Reduced loader timeout for snappier experience
+    setTimeout(() => loader.classList.add("hide"), 800);
   });
 
   // ===== CUSTOM CURSOR =====
@@ -47,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
     backTop.classList.toggle("show", window.scrollY > 300);
     updateActiveNav();
     revealElements();
-    reveal3D();
 
     // scroll progress
     const scrolled =
@@ -62,16 +62,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===== HAMBURGER =====
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("nav-links");
-  hamburger &&
-    hamburger.addEventListener("click", () =>
-      navLinks.classList.toggle("open"),
-    );
-  navLinks &&
-    navLinks
-      .querySelectorAll("a")
-      .forEach((a) =>
-        a.addEventListener("click", () => navLinks.classList.remove("open")),
-      );
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach((el) => {
+      el.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("open");
+      });
+    });
+  }
 
   // ===== ACTIVE NAV =====
   function updateActiveNav() {
@@ -126,24 +130,33 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   typeEl && setTimeout(type, 1800);
 
-  // ===== REVEAL ON SCROLL =====
+  // ===== ENHANCED REVEAL ON SCROLL =====
   function revealElements() {
-    document.querySelectorAll(".reveal:not(.active)").forEach((el) => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 80)
-        el.classList.add("active");
-    });
-  }
-  setTimeout(revealElements, 200);
+    // Select all elements that have a class starting with "reveal"
+    const revealers = document.querySelectorAll(
+      '[class^="reveal"]:not(.active), [class*=" reveal"]:not(.active)',
+    );
 
-  // ===== 3D SCROLL REVEAL =====
-  function reveal3D() {
-    document.querySelectorAll(".reveal-3d:not(.active)").forEach((el) => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 60) {
+    revealers.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const triggerPoint = window.innerHeight - 80;
+
+      if (rect.top < triggerPoint) {
         el.classList.add("active");
+
+        // Stagger children if it's a grid/container
+        if (el.classList.contains("stagger-children")) {
+          const children = el.children;
+          Array.from(children).forEach((child, i) => {
+            child.style.transitionDelay = `${i * 0.15}s`;
+            child.classList.add("active"); // In case children also have reveal classes
+          });
+        }
       }
     });
   }
-  setTimeout(reveal3D, 300);
+  // Initialize on load with a slight delay
+  setTimeout(revealElements, 400);
 
   // Scroll-driven continuous 3D tilt on sections
   window.addEventListener("scroll", () => {
@@ -160,11 +173,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ===== BLOB PARALLAX =====
   document.addEventListener("mousemove", (e) => {
-    const mx = (e.clientX / innerWidth - 0.5) * 20;
-    const my = (e.clientY / innerHeight - 0.5) * 20;
-    document.querySelectorAll(".blob").forEach((b, i) => {
-      b.style.transform = `translate(${mx * (i + 1) * 0.5}px,${my * (i + 1) * 0.5}px)`;
-    });
+    // Only run if not on touch
+    if (window.matchMedia("(pointer: fine)").matches) {
+      const mx = (e.clientX / innerWidth - 0.5) * 20;
+      const my = (e.clientY / innerHeight - 0.5) * 20;
+      document.querySelectorAll(".blob").forEach((b, i) => {
+        b.style.transform = `translate(${mx * (i + 1) * 0.5}px,${my * (i + 1) * 0.5}px)`;
+      });
+    }
   });
 
   // ===== TILT ON CARDS =====
@@ -193,51 +209,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ===== CONTACT FORM — AJAX SUBMIT (Formspree) =====
+  // ===== CONTACT FORM — STANDARD SUBMIT =====
+  // No AJAX here to prevent verification errors and allow standard Formspree flow
   const contactForm = document.getElementById("contact-form");
-  const successBox = document.getElementById("form-success");
-  const submitBtn = document.getElementById("submit-btn");
-  const btnText = document.getElementById("btn-text");
-  const btnIcon = document.getElementById("btn-icon");
-  const btnLoader = document.getElementById("btn-loader");
-
   if (contactForm) {
-    contactForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
+    contactForm.addEventListener("submit", function () {
+      const submitBtn = document.getElementById("submit-btn");
+      const btnText = document.getElementById("btn-text");
+      const btnIcon = document.getElementById("btn-icon");
+      const btnLoader = document.getElementById("btn-loader");
 
-      // Show loader
+      // Show loader briefly
       btnText.textContent = "Sending...";
       btnIcon.style.display = "none";
       btnLoader.style.display = "inline-block";
-      submitBtn.disabled = true;
-
-      try {
-        const formData = new FormData(contactForm);
-        const response = await fetch(contactForm.action, {
-          method: "POST",
-          body: formData,
-          headers: { Accept: "application/json" },
-        });
-
-        if (response.ok) {
-          // Hide form, show success
-          contactForm.style.display = "none";
-          successBox.classList.add("active");
-        } else {
-          // Reset button and alert on error
-          btnText.textContent = "Send Message";
-          btnIcon.style.display = "inline-block";
-          btnLoader.style.display = "none";
-          submitBtn.disabled = false;
-          alert("Oops! Something went wrong. Please try again.");
-        }
-      } catch (err) {
-        btnText.textContent = "Send Message";
-        btnIcon.style.display = "inline-block";
-        btnLoader.style.display = "none";
-        submitBtn.disabled = false;
-        alert("Network error. Please check your connection and try again.");
-      }
     });
   }
 });
